@@ -4,12 +4,12 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Litecoin</source>
+        <source>About LGBTQoin</source>
         <translation>Despre LGBTQoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Litecoin&lt;/b&gt; version</source>
+        <source>&lt;b&gt;LGBTQoin&lt;/b&gt; version</source>
         <translation>&lt;b&gt;LGBTQoin&lt;/b&gt; versiunea</translation>
     </message>
     <message>
@@ -29,7 +29,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Litecoin developers</source>
+        <source>The LGBTQoin developers</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -62,7 +62,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Litecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <source>These are your LGBTQoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
         <translation>Acestea sunt adresele dumneavoastră LGBTQoin pentru a primi plăţi. Dacă doriţi, puteți da o adresa diferită fiecărui expeditor, pentru a putea ţine evidenţa plăţilor.</translation>
     </message>
     <message>
@@ -77,7 +77,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Litecoin address</source>
+        <source>Sign a message to prove you own a LGBTQoin address</source>
         <translation>Semneaza mesajul pentru a dovedi ca detii aceasta adresa Bitocin</translation>
     </message>
     <message>
@@ -102,7 +102,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Litecoin address</source>
+        <source>Verify a message to ensure it was signed with a specified LGBTQoin address</source>
         <translation>Verifica mesajul pentru a te asigura ca a fost insemnat cu o adresa LGBTQoin specifica</translation>
     </message>
     <message>
@@ -117,7 +117,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Litecoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your LGBTQoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -243,7 +243,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LITECOINS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LGBTQoinS&lt;/b&gt;!</source>
         <translation>Atenție: Dacă pierdeţi parola portofelului electronic dupa criptare, &lt;b&gt;VEŢI PIERDE ÎNTREAGA SUMĂ DE LGBTQoin ACUMULATĂ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -270,7 +270,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Litecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your litecoins from being stolen by malware infecting your computer.</source>
+        <source>LGBTQoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your LGBTQoins from being stolen by malware infecting your computer.</source>
         <translation>LGBTQoin se va închide acum pentru a termina procesul de criptare. Amintiți-vă că criptarea portofelului dumneavoastră nu poate proteja în totalitate LGBTQoins dvs. de a fi furate de intentii rele.</translation>
     </message>
     <message>
@@ -369,7 +369,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Litecoin</source>
+        <source>Show information about LGBTQoin</source>
         <translation>Informaţii despre LGBTQoin</translation>
     </message>
     <message>
@@ -414,12 +414,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Litecoin address</source>
+        <source>Send coins to a LGBTQoin address</source>
         <translation>&amp;Trimiteţi LGBTQoin către o anumită adresă</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Litecoin</source>
+        <source>Modify configuration options for LGBTQoin</source>
         <translation>Modifică setările pentru LGBTQoin</translation>
     </message>
     <message>
@@ -450,7 +450,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Litecoin</source>
+        <source>LGBTQoin</source>
         <translation>LGBTQoin</translation>
     </message>
     <message>
@@ -475,7 +475,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Litecoin</source>
+        <source>&amp;About LGBTQoin</source>
         <translation>&amp;Despre LGBTQoin</translation>
     </message>
     <message>
@@ -495,12 +495,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Litecoin addresses to prove you own them</source>
+        <source>Sign messages with your LGBTQoin addresses to prove you own them</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Litecoin addresses</source>
+        <source>Verify messages to ensure they were signed with specified LGBTQoin addresses</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -531,13 +531,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Litecoin client</source>
+        <source>LGBTQoin client</source>
         <translation>Client LGBTQoin</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Litecoin network</source>
-        <translation><numerusform>%n active connections to Litecoin network</numerusform><numerusform>%n active connections to LGBTQoin network</numerusform><numerusform>%n active connections to LGBTQoin network</numerusform></translation>
+        <source>%n active connection(s) to LGBTQoin network</source>
+        <translation><numerusform>%n active connections to LGBTQoin network</numerusform><numerusform>%n active connections to LGBTQoin network</numerusform><numerusform>%n active connections to LGBTQoin network</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -647,7 +647,7 @@ Address: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Litecoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid LGBTQoin address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -662,7 +662,7 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Litecoin can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. LGBTQoin can no longer continue safely and will quit.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -728,7 +728,7 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Litecoin address.</source>
+        <source>The entered address &quot;%1&quot; is not a valid LGBTQoin address.</source>
         <translation>Adresa introdusă &quot;%1&quot; nu este o adresă LGBTQoin valabilă.</translation>
     </message>
     <message>
@@ -747,7 +747,7 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Litecoin-Qt</source>
+        <source>LGBTQoin-Qt</source>
         <translation>LGBTQoin-Qt</translation>
     </message>
     <message>
@@ -810,12 +810,12 @@ Address: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Litecoin after logging in to the system.</source>
+        <source>Automatically start LGBTQoin after logging in to the system.</source>
         <translation>Porneşte automat programul LGBTQoin la pornirea computerului.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Litecoin on system login</source>
+        <source>&amp;Start LGBTQoin on system login</source>
         <translation>&amp;S Porneşte LGBTQoin la pornirea sistemului</translation>
     </message>
     <message>
@@ -835,7 +835,7 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Litecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the LGBTQoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Deschide automat în router portul aferent clientului LGBTQoin. Funcţionează doar în cazul în care routerul e compatibil UPnP şi opţiunea e activată.</translation>
     </message>
     <message>
@@ -845,7 +845,7 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Litecoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <source>Connect to the LGBTQoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
         <translation>Conectare la reţeaua LGBTQoin folosind un proxy SOCKS (de exemplu, când conexiunea se stabileşte prin reţeaua Tor)</translation>
     </message>
     <message>
@@ -920,7 +920,7 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Litecoin.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting LGBTQoin.</source>
         <translation>Limba interfeței utilizatorului poate fi setat aici. Această setare va avea efect după repornirea LGBTQoin.</translation>
     </message>
     <message>
@@ -935,7 +935,7 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Litecoin addresses in the transaction list or not.</source>
+        <source>Whether to show LGBTQoin addresses in the transaction list or not.</source>
         <translation>Vezi dacă adresele LGBTQoin sunt în lista de tranzacție sau nu</translation>
     </message>
     <message>
@@ -987,7 +987,7 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Litecoin.</source>
+        <source>This setting will take effect after restarting LGBTQoin.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1006,7 +1006,7 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Litecoin network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the LGBTQoin network after a connection is established, but this process has not completed yet.</source>
         <translation>Informațiile afișate pot fi expirate. Portofelul tău se sincronizează automat cu rețeaua LGBTQoin după ce o conexiune este stabilita, dar acest proces nu a fost finalizat încă.</translation>
     </message>
     <message>
@@ -1060,7 +1060,7 @@ Address: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start litecoin: click-to-pay handler</source>
+        <source>Cannot start LGBTQoin: click-to-pay handler</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1210,7 +1210,7 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Litecoin-Qt help message to get a list with possible Litecoin command-line options.</source>
+        <source>Show the LGBTQoin-Qt help message to get a list with possible LGBTQoin command-line options.</source>
         <translation>Arata mesajul de ajutor LGBTQoin-QT pentru a obtine o lista cu posibilele optiuni ale comenzilor LGBTQoin</translation>
     </message>
     <message>
@@ -1230,12 +1230,12 @@ Address: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Litecoin - Debug window</source>
+        <source>LGBTQoin - Debug window</source>
         <translation>LGBTQoin-Fereastra pentru debug</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Litecoin Core</source>
+        <source>LGBTQoin Core</source>
         <translation>LGBTQoin Core</translation>
     </message>
     <message>
@@ -1245,7 +1245,7 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Litecoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the LGBTQoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Deschide logurile debug din directorul curent. Aceasta poate dura cateva secunde pentru fisierele mai mari</translation>
     </message>
     <message>
@@ -1255,7 +1255,7 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Litecoin RPC console.</source>
+        <source>Welcome to the LGBTQoin RPC console.</source>
         <translation>Bun venit la consola LGBTQoin RPC</translation>
     </message>
     <message>
@@ -1398,7 +1398,7 @@ Address: %4
     </message>
     <message>
         <location line="+34"/>
-        <source>The address to send the payment to (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <source>The address to send the payment to (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1439,8 +1439,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Litecoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Introduceţi o adresă LGBTQoin (de exemplu: Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a LGBTQoin address (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Introduceţi o adresă LGBTQoin (de exemplu: H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
 </context>
 <context>
@@ -1462,8 +1462,8 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Introduceţi o adresă LGBTQoin (de exemplu: Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to sign the message with (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Introduceţi o adresă LGBTQoin (de exemplu: H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1504,7 +1504,7 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Litecoin address</source>
+        <source>Sign the message to prove you own this LGBTQoin address</source>
         <translation>Semneaza mesajul pentru a dovedi ca detii acesta adresa LGBTQoin</translation>
     </message>
     <message>
@@ -1535,12 +1535,12 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Introduceţi o adresă LGBTQoin (de exemplu: Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address the message was signed with (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Introduceţi o adresă LGBTQoin (de exemplu: H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Litecoin address</source>
+        <source>Verify the message to ensure it was signed with the specified LGBTQoin address</source>
         <translation>Verifica mesajul pentru a fi sigur ca a fost semnat cu adresa LGBTQoin specifica</translation>
     </message>
     <message>
@@ -1556,8 +1556,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Litecoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Introduceţi o adresă LGBTQoin (de exemplu: Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a LGBTQoin address (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Introduceţi o adresă LGBTQoin (de exemplu: H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1566,7 +1566,7 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Litecoin signature</source>
+        <source>Enter LGBTQoin signature</source>
         <translation>Introduce semnatura bitocin</translation>
     </message>
     <message>
@@ -1640,7 +1640,7 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Litecoin developers</source>
+        <source>The LGBTQoin developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2178,7 +2178,7 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Litecoin version</source>
+        <source>LGBTQoin version</source>
         <translation>versiunea LGBTQoin</translation>
     </message>
     <message>
@@ -2188,7 +2188,7 @@ Address: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or litecoind</source>
+        <source>Send command to -server or LGBTQoind</source>
         <translation>Trimite comanda la -server sau LGBTQoind</translation>
     </message>
     <message>
@@ -2208,12 +2208,12 @@ Address: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: litecoin.conf)</source>
+        <source>Specify configuration file (default: LGBTQoin.conf)</source>
         <translation>Specifica-ți configurația fisierului (in mod normal: LGBTQoin.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: litecoind.pid)</source>
+        <source>Specify pid file (default: LGBTQoind.pid)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2228,8 +2228,8 @@ Address: %4
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 9333 or testnet: 19333)</source>
-        <translation>Lista a conectiunile in &lt;port&gt; (initial:  9333 sau testnet: 19333)</translation>
+        <source>Listen for connections on &lt;port&gt; (default: 8922 or testnet: 18922)</source>
+        <translation>Lista a conectiunile in &lt;port&gt; (initial:  8922 sau testnet: 18922)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2263,7 +2263,7 @@ Address: %4
     </message>
     <message>
         <location line="+27"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 9332 or testnet: 19332)</source>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8923 or testnet: 18923)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2292,13 +2292,13 @@ Address: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=litecoinrpc
+rpcuser=LGBTQoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;LGBTQoin Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"/>
     </message>
@@ -2314,7 +2314,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Litecoin is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s. LGBTQoin is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2359,7 +2359,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Litecoin will not work properly.</source>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong LGBTQoin will not work properly.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2609,7 +2609,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Litecoin Wiki for SSL setup instructions)</source>
+        <source>SSL options: (see the LGBTQoin Wiki for SSL setup instructions)</source>
         <translation>Optiuni SSl (vezi LGBTQoin wiki pentru intructiunile de instalare)</translation>
     </message>
     <message>
@@ -2801,12 +2801,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Litecoin</source>
+        <source>Error loading wallet.dat: Wallet requires newer version of LGBTQoin</source>
         <translation>Eroare incarcare wallet.dat: Portofelul are nevoie de o versiune LGBTQoin mai noua</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Litecoin to complete</source>
+        <source>Wallet needed to be rewritten: restart LGBTQoin to complete</source>
         <translation>Portofelul trebuie rescris: restarteaza aplicatia LGBTQoin pentru a face asta.</translation>
     </message>
     <message>
@@ -2868,7 +2868,7 @@ details suggestions history
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Litecoin is probably already running.</source>
+        <source>Unable to bind to %s on this computer. LGBTQoin is probably already running.</source>
         <translation>Imposibilitatea de a lega la% s pe acest computer. LGBTQoin este, probabil, deja în execuție.</translation>
     </message>
     <message>

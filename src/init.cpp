@@ -10,6 +10,7 @@
 #include "init.h"
 #include "util.h"
 #include "ui_interface.h"
+#include "checkpointsync.h"
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -100,7 +101,6 @@ void Shutdown()
     ShutdownRPCMining();
     if (pwalletMain)
         bitdb.Flush(false);
-    GenerateBitcoins(false, NULL);
     StopNode();
     {
         LOCK(cs_main);
@@ -181,10 +181,10 @@ bool AppInit(int argc, char* argv[])
             // First part of help message is specific to bitcoind / RPC client
             std::string strUsage = _("LGBTQoin version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  lgbtqoind [options]                     " + "\n" +
-                  "  lgbtqoind [options] <command> [params]  " + _("Send command to -server or LGBTQoind") + "\n" +
-                  "  lgbtqoind [options] help                " + _("List commands") + "\n" +
-                  "  lgbtqoind [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  LGBTQoind [options]                     " + "\n" +
+                  "  LGBTQoind [options] <command> [params]  " + _("Send command to -server or LGBTQoind") + "\n" +
+                  "  LGBTQoind [options] help                " + _("List commands") + "\n" +
+                  "  LGBTQoind [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -297,9 +297,8 @@ std::string HelpMessage()
 {
     string strUsage = _("Options:") + "\n" +
         "  -?                     " + _("This help message") + "\n" +
-        "  -conf=<file>           " + _("Specify configuration file (default: lgbtqoin.conf)") + "\n" +
-        "  -pid=<file>            " + _("Specify pid file (default: lgbtqoind.pid)") + "\n" +
-        "  -gen                   " + _("Generate coins (default: 0)") + "\n" +
+        "  -conf=<file>           " + _("Specify configuration file (default: LGBTQoin.conf)") + "\n" +
+        "  -pid=<file>            " + _("Specify pid file (default: LGBTQoind.pid)") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
         "  -dbcache=<n>           " + _("Set database cache size in megabytes (default: 25)") + "\n" +
         "  -timeout=<n>           " + _("Specify connection timeout in milliseconds (default: 5000)") + "\n" +
@@ -307,7 +306,7 @@ std::string HelpMessage()
         "  -socks=<n>             " + _("Select the version of socks proxy to use (4-5, default: 5)") + "\n" +
         "  -tor=<ip:port>         " + _("Use proxy to reach tor hidden services (default: same as -proxy)") + "\n"
         "  -dns                   " + _("Allow DNS lookups for -addnode, -seednode and -connect") + "\n" +
-        "  -port=<port>           " + _("Listen for connections on <port> (default: 11085 or testnet: 5744)") + "\n" +
+        "  -port=<port>           " + _("Listen for connections on <port> (default: 8922 or testnet: 18922)") + "\n" +
         "  -maxconnections=<n>    " + _("Maintain at most <n> connections to peers (default: 125)") + "\n" +
         "  -addnode=<ip>          " + _("Add a node to connect to and attempt to keep the connection open") + "\n" +
         "  -connect=<ip>          " + _("Connect only to the specified node(s)") + "\n" +
@@ -316,6 +315,7 @@ std::string HelpMessage()
         "  -onlynet=<net>         " + _("Only connect to nodes in network <net> (IPv4, IPv6 or Tor)") + "\n" +
         "  -discover              " + _("Discover own IP address (default: 1 when listening and no -externalip)") + "\n" +
         "  -checkpoints           " + _("Only accept block chain matching built-in checkpoints (default: 1)") + "\n" +
+        "  -irc                   " + _("Find peers using internet relay chat (default: 0)") + "\n" +
         "  -listen                " + _("Accept connections from outside (default: 1 if no -proxy or -connect)") + "\n" +
         "  -bind=<addr>           " + _("Bind to given address and always listen on it. Use [host]:port notation for IPv6") + "\n" +
         "  -dnsseed               " + _("Find peers using DNS lookup (default: 1 unless -connect)") + "\n" +
@@ -350,7 +350,7 @@ std::string HelpMessage()
 #endif
         "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n" +
         "  -rpcpassword=<pw>      " + _("Password for JSON-RPC connections") + "\n" +
-        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 21085 or testnet: 5745)") + "\n" +
+        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 8923 or testnet: 18923)") + "\n" +
         "  -rpcallowip=<ip>       " + _("Allow JSON-RPC connections from specified IP address") + "\n" +
 #ifndef QT_GUI
         "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
@@ -375,7 +375,7 @@ std::string HelpMessage()
         "  -blockmaxsize=<n>      "   + _("Set maximum block size in bytes (default: 250000)") + "\n" +
         "  -blockprioritysize=<n> "   + _("Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)") + "\n" +
 
-        "\n" + _("SSL options: (see the Litecoin Wiki for SSL setup instructions)") + "\n" +
+        "\n" + _("SSL options: (see the LGBTQoin Wiki for SSL setup instructions)") + "\n" +
         "  -rpcssl                                  " + _("Use OpenSSL (https) for JSON-RPC connections") + "\n" +
         "  -rpcsslcertificatechainfile=<file.cert>  " + _("Server certificate file (default: server.cert)") + "\n" +
         "  -rpcsslprivatekeyfile=<file.pem>         " + _("Server private key (default: server.pem)") + "\n" +
@@ -506,6 +506,9 @@ bool AppInit2(boost::thread_group& threadGroup)
     fBloomFilters = GetBoolArg("-bloomfilters", true);
     if (fBloomFilters)
         nLocalServices |= NODE_BLOOM;
+		
+	// IRC on
+	SoftSetBoolArg("-irc", true);
 
     if (mapArgs.count("-bind")) {
         // when specifying an explicit binding address, you want to listen on it
@@ -634,6 +637,12 @@ bool AppInit2(boost::thread_group& threadGroup)
             return InitError(strprintf(_("Invalid amount for -mininput=<amount>: '%s'"), mapArgs["-mininput"].c_str()));
     }
 
+	if (mapArgs.count("-checkpointkey")) // ppcoin: checkpoint master priv key
+    {
+        if (!SetCheckpointPrivKey(GetArg("-checkpointkey", "")))
+            return InitError(_("Unable to sign checkpoint, wrong checkpointkey?"));
+    }
+	
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
 
     std::string strDataDir = GetDataDir().string();
@@ -1124,10 +1133,6 @@ bool AppInit2(boost::thread_group& threadGroup)
     InitRPCMining();
     if (fServer)
         StartRPCThreads();
-
-    // Generate coins in the background
-    if (pwalletMain)
-        GenerateBitcoins(GetBoolArg("-gen", false), pwalletMain);
 
     // ********************************************************* Step 12: finished
 

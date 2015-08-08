@@ -4,12 +4,12 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Litecoin</source>
+        <source>About LGBTQoin</source>
         <translation>O LGBTQoinu</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Litecoin&lt;/b&gt; version</source>
+        <source>&lt;b&gt;LGBTQoin&lt;/b&gt; version</source>
         <translation>&lt;b&gt;LGBTQoin&lt;/b&gt; verze</translation>
     </message>
     <message>
@@ -34,7 +34,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+0"/>
-        <source>The Litecoin developers</source>
+        <source>The LGBTQoin developers</source>
         <translation>Vývojáři LGBTQoinu</translation>
     </message>
 </context>
@@ -67,7 +67,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Litecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <source>These are your LGBTQoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
         <translation>Tohle jsou tvé LGBTQoinové adresy pro příjem plateb. Můžeš dát pokaždé každému plátci novou adresu, abys věděl, kdo ti kdy kolik platil.</translation>
     </message>
     <message>
@@ -82,7 +82,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Litecoin address</source>
+        <source>Sign a message to prove you own a LGBTQoin address</source>
         <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem LGBTQoinové adresy</translation>
     </message>
     <message>
@@ -107,7 +107,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Litecoin address</source>
+        <source>Verify a message to ensure it was signed with a specified LGBTQoin address</source>
         <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou LGBTQoinovou adresou</translation>
     </message>
     <message>
@@ -122,7 +122,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Litecoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your LGBTQoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Tohle jsou tvé LGBTQoinové adresy pro posílání plateb. Před odesláním mincí si vždy zkontroluj částku a cílovou adresu.</translation>
     </message>
     <message>
@@ -248,7 +248,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LITECOINS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR LGBTQoinS&lt;/b&gt;!</source>
         <translation>Varování: Pokud si zašifruješ peněženku a ztratíš či zapomeneš heslo, &lt;b&gt;PŘIJDEŠ O VŠECHNY LGBTQoinY&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -275,7 +275,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-56"/>
-        <source>Litecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your litecoins from being stolen by malware infecting your computer.</source>
+        <source>LGBTQoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your LGBTQoins from being stolen by malware infecting your computer.</source>
         <translation>LGBTQoin se teď ukončí, aby dokončil zašifrování. Pamatuj však, že pouhé zašifrování peněženky úplně nezabraňuje krádeži tvých LGBTQoinů malwarem, kterým se může počítač nakazit.</translation>
     </message>
     <message>
@@ -374,7 +374,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Litecoin</source>
+        <source>Show information about LGBTQoin</source>
         <translation>Zobraz informace o LGBTQoinu</translation>
     </message>
     <message>
@@ -419,12 +419,12 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Litecoin address</source>
+        <source>Send coins to a LGBTQoin address</source>
         <translation>Pošli mince na LGBTQoinovou adresu</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Litecoin</source>
+        <source>Modify configuration options for LGBTQoin</source>
         <translation>Uprav nastavení LGBTQoinu</translation>
     </message>
     <message>
@@ -455,7 +455,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Litecoin</source>
+        <source>LGBTQoin</source>
         <translation>LGBTQoin</translation>
     </message>
     <message>
@@ -480,7 +480,7 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Litecoin</source>
+        <source>&amp;About LGBTQoin</source>
         <translation>O &amp;LGBTQoinu</translation>
     </message>
     <message>
@@ -500,12 +500,12 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Litecoin addresses to prove you own them</source>
+        <source>Sign messages with your LGBTQoin addresses to prove you own them</source>
         <translation>Podepiš zprávy svými LGBTQoinovými adresami, čímž prokážeš, že jsi jejich vlastníkem</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Litecoin addresses</source>
+        <source>Verify messages to ensure they were signed with specified LGBTQoin addresses</source>
         <translation>Ověř zprávy, aby ses ujistil, že byly podepsány danými LGBTQoinovými adresami</translation>
     </message>
     <message>
@@ -536,13 +536,13 @@ Tento produkt zahrnuje programy vyvinuté OpenSSL Projektem pro použití v Open
     </message>
     <message>
         <location line="+47"/>
-        <source>Litecoin client</source>
+        <source>LGBTQoin client</source>
         <translation>LGBTQoin klient</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Litecoin network</source>
-        <translation><numerusform>%n aktivní spojení do Litecoinové sítě</numerusform><numerusform>%n aktivní spojení do LGBTQoinové sítě</numerusform><numerusform>%n aktivních spojení do LGBTQoinové sítě</numerusform></translation>
+        <source>%n active connection(s) to LGBTQoin network</source>
+        <translation><numerusform>%n aktivní spojení do LGBTQoinové sítě</numerusform><numerusform>%n aktivní spojení do LGBTQoinové sítě</numerusform><numerusform>%n aktivních spojení do LGBTQoinové sítě</numerusform></translation>
     </message>
     <message>
         <location line="+22"/>
@@ -656,7 +656,7 @@ Adresa: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Litecoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid LGBTQoin address or malformed URI parameters.</source>
         <translation>Nepodařilo se analyzovat URI! Důvodem může být neplatná LGBTQoinová adresa nebo poškozené parametry URI.</translation>
     </message>
     <message>
@@ -671,7 +671,7 @@ Adresa: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Litecoin can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. LGBTQoin can no longer continue safely and will quit.</source>
         <translation>Stala se fatální chyba. LGBTQoin nemůže bezpečně pokračovat v činnosti, a proto skončí.</translation>
     </message>
 </context>
@@ -737,7 +737,7 @@ Adresa: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Litecoin address.</source>
+        <source>The entered address &quot;%1&quot; is not a valid LGBTQoin address.</source>
         <translation>Zadaná adresa &quot;%1&quot; není platná LGBTQoinová adresa.</translation>
     </message>
     <message>
@@ -756,7 +756,7 @@ Adresa: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Litecoin-Qt</source>
+        <source>LGBTQoin-Qt</source>
         <translation>LGBTQoin-Qt</translation>
     </message>
     <message>
@@ -819,12 +819,12 @@ Adresa: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Litecoin after logging in to the system.</source>
+        <source>Automatically start LGBTQoin after logging in to the system.</source>
         <translation>Automaticky spustí LGBTQoin po přihlášení do systému.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Litecoin on system login</source>
+        <source>&amp;Start LGBTQoin on system login</source>
         <translation>S&amp;pustit LGBTQoin po přihlášení do systému</translation>
     </message>
     <message>
@@ -844,7 +844,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Litecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the LGBTQoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>Automaticky otevře potřebný port na routeru. Tohle funguje jen za předpokladu, že tvůj router podporuje UPnP a že je UPnP povolené.</translation>
     </message>
     <message>
@@ -854,7 +854,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Litecoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <source>Connect to the LGBTQoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
         <translation>Připojí se do LGBTQoinové sítě přes SOCKS proxy (např. když se připojuje přes Tor).</translation>
     </message>
     <message>
@@ -929,7 +929,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Litecoin.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting LGBTQoin.</source>
         <translation>Tady lze nastavit jazyk uživatelského rozhraní. Nastavení se projeví až po restartování LGBTQoinu.</translation>
     </message>
     <message>
@@ -944,7 +944,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Litecoin addresses in the transaction list or not.</source>
+        <source>Whether to show LGBTQoin addresses in the transaction list or not.</source>
         <translation>Zda ukazovat LGBTQoinové adresy ve výpisu transakcí nebo ne.</translation>
     </message>
     <message>
@@ -996,7 +996,7 @@ Adresa: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Litecoin.</source>
+        <source>This setting will take effect after restarting LGBTQoin.</source>
         <translation>Nastavení se projeví až po restartování LGBTQoinu.</translation>
     </message>
     <message>
@@ -1015,7 +1015,7 @@ Adresa: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Litecoin network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the LGBTQoin network after a connection is established, but this process has not completed yet.</source>
         <translation>Zobrazené informace nemusí být aktuální. Tvá peněženka se automaticky sesynchronizuje s LGBTQoinovou sítí, jakmile se s ní spojí. Zatím ale ještě není synchronizace dokončena.</translation>
     </message>
     <message>
@@ -1069,7 +1069,7 @@ Adresa: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start litecoin: click-to-pay handler</source>
+        <source>Cannot start LGBTQoin: click-to-pay handler</source>
         <translation>Nemůžu spustit LGBTQoin: obsluha click-to-pay</translation>
     </message>
 </context>
@@ -1219,7 +1219,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Litecoin-Qt help message to get a list with possible Litecoin command-line options.</source>
+        <source>Show the LGBTQoin-Qt help message to get a list with possible LGBTQoin command-line options.</source>
         <translation>Seznam parametrů LGBTQoinu pro příkazovou řádku získáš v nápovědě LGBTQoinu Qt.</translation>
     </message>
     <message>
@@ -1239,12 +1239,12 @@ Adresa: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Litecoin - Debug window</source>
+        <source>LGBTQoin - Debug window</source>
         <translation>LGBTQoin - ladicí okno</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Litecoin Core</source>
+        <source>LGBTQoin Core</source>
         <translation>Jádro LGBTQoinu</translation>
     </message>
     <message>
@@ -1254,7 +1254,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Litecoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the LGBTQoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Otevři soubor s ladicími záznamy LGBTQoinu z aktuálního datového adresáře. U velkých logů to může pár vteřin zabrat.</translation>
     </message>
     <message>
@@ -1264,7 +1264,7 @@ Adresa: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Litecoin RPC console.</source>
+        <source>Welcome to the LGBTQoin RPC console.</source>
         <translation>Vítej v LGBTQoinové RPC konzoli.</translation>
     </message>
     <message>
@@ -1407,8 +1407,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+34"/>
-        <source>The address to send the payment to (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Adresa příjemce (např. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to send the payment to (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Adresa příjemce (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -1448,8 +1448,8 @@ Adresa: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Litecoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Zadej LGBTQoinovou adresu (např. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a LGBTQoin address (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Zadej LGBTQoinovou adresu (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
 </context>
 <context>
@@ -1471,8 +1471,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Adresa, kterou se zpráva podepíše (např. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to sign the message with (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Adresa, kterou se zpráva podepíše (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1513,7 +1513,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Litecoin address</source>
+        <source>Sign the message to prove you own this LGBTQoin address</source>
         <translation>Podepiš zprávu, čímž prokážeš, že jsi vlastníkem této LGBTQoinové adresy</translation>
     </message>
     <message>
@@ -1544,12 +1544,12 @@ Adresa: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Adresa, kterou je zpráva podepsána (např. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address the message was signed with (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Adresa, kterou je zpráva podepsána (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Litecoin address</source>
+        <source>Verify the message to ensure it was signed with the specified LGBTQoin address</source>
         <translation>Ověř zprávu, aby ses ujistil, že byla podepsána danou LGBTQoinovou adresou</translation>
     </message>
     <message>
@@ -1565,8 +1565,8 @@ Adresa: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Litecoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Zadej LGBTQoinovou adresu (např. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a LGBTQoin address (e.g. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</source>
+        <translation>Zadej LGBTQoinovou adresu (např. H7QEPyCg1Yv3UZUALDha9bNYXuYbfMe9Lp)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,7 +1575,7 @@ Adresa: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Litecoin signature</source>
+        <source>Enter LGBTQoin signature</source>
         <translation>Vlož LGBTQoinový podpis</translation>
     </message>
     <message>
@@ -1649,7 +1649,7 @@ Adresa: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Litecoin developers</source>
+        <source>The LGBTQoin developers</source>
         <translation>Vývojáři LGBTQoinu</translation>
     </message>
     <message>
@@ -2187,7 +2187,7 @@ Adresa: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Litecoin version</source>
+        <source>LGBTQoin version</source>
         <translation>Verze LGBTQoinu</translation>
     </message>
     <message>
@@ -2197,7 +2197,7 @@ Adresa: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or litecoind</source>
+        <source>Send command to -server or LGBTQoind</source>
         <translation>Poslat příkaz pro -server nebo LGBTQoind</translation>
     </message>
     <message>
@@ -2217,12 +2217,12 @@ Adresa: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: litecoin.conf)</source>
+        <source>Specify configuration file (default: LGBTQoin.conf)</source>
         <translation>Konfigurační soubor (výchozí: LGBTQoin.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: litecoind.pid)</source>
+        <source>Specify pid file (default: LGBTQoind.pid)</source>
         <translation>PID soubor (výchozí: LGBTQoind.pid)</translation>
     </message>
     <message>
@@ -2237,8 +2237,8 @@ Adresa: %4
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 9333 or testnet: 19333)</source>
-        <translation>Čekat na spojení na &lt;portu&gt; (výchozí: 9333 nebo testnet: 19333)</translation>
+        <source>Listen for connections on &lt;port&gt; (default: 8922 or testnet: 18922)</source>
+        <translation>Čekat na spojení na &lt;portu&gt; (výchozí: 8922 nebo testnet: 18922)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2272,8 +2272,8 @@ Adresa: %4
     </message>
     <message>
         <location line="+27"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 9332 or testnet: 19332)</source>
-        <translation>Čekat na JSON RPC spojení na &lt;portu&gt; (výchozí: 9332 nebo testnet: 19332)</translation>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 8923 or testnet: 18923)</source>
+        <translation>Čekat na JSON RPC spojení na &lt;portu&gt; (výchozí: 8923 nebo testnet: 18923)</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2300,24 +2300,24 @@ Adresa: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=litecoinrpc
+rpcuser=LGBTQoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;LGBTQoin Alert&quot; admin@foo.com
 </source>
         <translation>%s, musíš nastavit rpcpassword v konfiguračním souboru:
 %s
 Je vhodné použít následující náhodné heslo:
-rpcuser=litecoinrpc
+rpcuser=LGBTQoinrpc
 rpcpassword=%s
 (není potřeba si ho pamatovat)
 rpcuser a rpcpassword NESMÍ být stejné.
 Pokud konfigurační soubor ještě neexistuje, vytvoř ho tak, aby ho mohl číst pouze vlastník.
 Je také doporučeno si nastavit alertnotify, abys byl upozorněn na případné problémy;
-například: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo.com
+například: alertnotify=echo %%s | mail -s &quot;LGBTQoin Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2332,7 +2332,7 @@ například: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Litecoin is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s. LGBTQoin is probably already running.</source>
         <translation>Nedaří se mi získat zámek na datový adresář %s. LGBTQoin pravděpodobně už jednou běží.</translation>
     </message>
     <message>
@@ -2377,7 +2377,7 @@ například: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Litecoin will not work properly.</source>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong LGBTQoin will not work properly.</source>
         <translation>Upozornění: Zkontroluj, že máš v počítači správně nastavený datum a čas! Pokud jsou nastaveny špatně, LGBTQoin nebude fungovat správně.</translation>
     </message>
     <message>
@@ -2627,7 +2627,7 @@ například: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Litecoin Wiki for SSL setup instructions)</source>
+        <source>SSL options: (see the LGBTQoin Wiki for SSL setup instructions)</source>
         <translation>Možnosti SSL: (viz instrukce nastavení SSL v LGBTQoin Wiki)</translation>
     </message>
     <message>
@@ -2817,12 +2817,12 @@ například: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Litecoin</source>
+        <source>Error loading wallet.dat: Wallet requires newer version of LGBTQoin</source>
         <translation>Chyba při načítání wallet.dat: peněženka vyžaduje novější verzi LGBTQoinu</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Litecoin to complete</source>
+        <source>Wallet needed to be rewritten: restart LGBTQoin to complete</source>
         <translation>Soubor s peněženkou potřeboval přepsat: restartuj LGBTQoin, aby se operace dokončila</translation>
     </message>
     <message>
@@ -2882,7 +2882,7 @@ například: alertnotify=echo %%s | mail -s &quot;Litecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Litecoin is probably already running.</source>
+        <source>Unable to bind to %s on this computer. LGBTQoin is probably already running.</source>
         <translation>Nedaří se mi připojit na %s na tomhle počítači. LGBTQoin už pravděpodobně jednou běží.</translation>
     </message>
     <message>

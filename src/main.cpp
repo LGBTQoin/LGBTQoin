@@ -11,6 +11,7 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "checkqueue.h"
+#include "checkpointsync.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -31,8 +32,9 @@ CTxMemPool mempool;
 unsigned int nTransactionsUpdated = 0;
 
 map<uint256, CBlockIndex*> mapBlockIndex;
-uint256 hashGenesisBlock("0x4f44361452395ba243d6202715dfbacaff6a38cb0f7032e40324e78791034270");
+uint256 hashGenesisBlock("0x00000adc340c318fe49540ef2e5527357409760e64edc373ea2dc40c77f77e03");
 static CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // LGBTQoin: starting difficulty is 1 / 2^12
+static CBigNum bnInitialDifficulty(~uint256(0) >> 26);
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 uint256 nBestChainWork = 0;
@@ -49,9 +51,9 @@ bool fTxIndex = false;
 unsigned int nCoinCacheSize = 5000;
 
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
-int64 CTransaction::nMinTxFee = 100000;
+int64 CTransaction::nMinTxFee = 0.00001 * COIN;
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
-int64 CTransaction::nMinRelayTxFee = 100000;
+int64 CTransaction::nMinRelayTxFee = 0.00001 * COIN;
 
 CMedianFilter<int> cPeerBlockCounts(8, 0); // Amount of blocks that other nodes claim to have
 
@@ -921,7 +923,7 @@ int CMerkleTx::GetBlocksToMaturity() const
 {
     if (!IsCoinBase())
         return 0;
-    return max(0, (COINBASE_MATURITY) - GetDepthInMainChain());
+    return max(0, (COINBASE_MATURITY+20) - GetDepthInMainChain());
 }
 
 
@@ -1065,18 +1067,13 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 {
     int64 nSubsidy = 50 * COIN;
 
-    if(nHeight == 1){
-        nSubsidy = nSubsidy * 24705800 * 15  / 100 / 50;
-     }
-
-    nSubsidy >>= (nHeight / 210000);
-
+    nSubsidy >>= (nHeight / 500000);
 
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 86400;
-static const int64 nTargetSpacing = 900;
+static const int64 nTargetTimespan = 24 * 60 * 60;
+static const int64 nTargetSpacing = 5 * 60;
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 //
@@ -1104,74 +1101,81 @@ unsigned int ComputeMinWork(unsigned int nBase, int64 nTime)
     return bnResult.GetCompact();
 }
 
+unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader *pblock, uint64 TargetBlocksSpacingSeconds, uint64 PastBlocksMin, uint64 PastBlocksMax) {
+	
+	const CBlockIndex  *BlockLastSolved				= pindexLast;
+	const CBlockIndex  *BlockReading				= pindexLast;
+	const CBlockHeader *BlockCreating				= pblock;
+						BlockCreating				= BlockCreating;
+	uint64				PastBlocksMass				= 0;
+	int64				PastRateActualSeconds		= 0;
+	int64				PastRateTargetSeconds		= 0;
+	double				PastRateAdjustmentRatio		= double(1);
+	CBigNum				PastDifficultyAverage;
+	CBigNum				PastDifficultyAveragePrev;
+	double				EventHorizonDeviation;
+	double				EventHorizonDeviationFast;
+	double				EventHorizonDeviationSlow;
+	
+    if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || (uint64)BlockLastSolved->nHeight < PastBlocksMin) { return bnProofOfWorkLimit.GetCompact(); }
+	
+	for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) {
+		if (PastBlocksMax > 0 && i > PastBlocksMax) { break; }
+		PastBlocksMass++;
+		
+		if (i == 1)	{ PastDifficultyAverage.SetCompact(BlockReading->nBits); }
+		else		{ PastDifficultyAverage = ((CBigNum().SetCompact(BlockReading->nBits) - PastDifficultyAveragePrev) / i) + PastDifficultyAveragePrev; }
+		PastDifficultyAveragePrev = PastDifficultyAverage;
+		
+		PastRateActualSeconds			= BlockLastSolved->GetBlockTime() - BlockReading->GetBlockTime();
+		PastRateTargetSeconds			= TargetBlocksSpacingSeconds * PastBlocksMass;
+		PastRateAdjustmentRatio			= double(1);
+		if (PastRateActualSeconds < 0) { PastRateActualSeconds = 0; }
+		if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0) {
+		PastRateAdjustmentRatio			= double(PastRateTargetSeconds) / double(PastRateActualSeconds);
+		}
+		EventHorizonDeviation			= 1 + (0.7084 * pow((double(PastBlocksMass)/double(28.2)), -1.228));
+		EventHorizonDeviationFast		= EventHorizonDeviation;
+		EventHorizonDeviationSlow		= 1 / EventHorizonDeviation;
+		
+		if (PastBlocksMass >= PastBlocksMin) {
+			if ((PastRateAdjustmentRatio <= EventHorizonDeviationSlow) || (PastRateAdjustmentRatio >= EventHorizonDeviationFast)) { assert(BlockReading); break; }
+		}
+		if (BlockReading->pprev == NULL) { assert(BlockReading); break; }
+		BlockReading = BlockReading->pprev;
+	}
+	
+	CBigNum bnNew(PastDifficultyAverage);
+	if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0) {
+		bnNew *= PastRateActualSeconds;
+		bnNew /= PastRateTargetSeconds;
+	}
+    if (bnNew > bnProofOfWorkLimit) { bnNew = bnProofOfWorkLimit; }
+	
+    /// debug print
+    // printf("Difficulty Retarget - Kimoto Gravity Well\n");
+    // printf("PastRateAdjustmentRatio = %g\n", PastRateAdjustmentRatio);
+    // printf("Before: %08x  %s\n", BlockLastSolved->nBits, CBigNum().SetCompact(BlockLastSolved->nBits).getuint256().ToString().c_str());
+    // printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+	
+	return bnNew.GetCompact();
+}
+
 unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock)
 {
-    unsigned int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
+	if (pindexLast->nHeight == 50)
+		return bnInitialDifficulty.GetCompact();
 
-    // Genesis block
-    if (pindexLast == NULL)
-        return nProofOfWorkLimit;
-
-    // Only change once per interval
-    if ((pindexLast->nHeight+1) % nInterval != 0)
-    {
-        // Special difficulty rule for testnet:
-        if (fTestNet)
-        {
-            // If the new block's timestamp is more than 2* 10 minutes
-            // then allow mining of a min-difficulty block.
-            if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
-                return nProofOfWorkLimit;
-            else
-            {
-                // Return the last non-special-min-difficulty-rules-block
-                const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % nInterval != 0 && pindex->nBits == nProofOfWorkLimit)
-                    pindex = pindex->pprev;
-                return pindex->nBits;
-            }
-        }
-
-        return pindexLast->nBits;
-    }
-
-    // LGBTQoin: This fixes an issue where a 51% attack can change difficulty at will.
-    // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
-    int blockstogoback = nInterval-1;
-    if ((pindexLast->nHeight+1) != nInterval)
-        blockstogoback = nInterval;
-
-    // Go back by what we want to be 14 days worth of blocks
-    const CBlockIndex* pindexFirst = pindexLast;
-    for (int i = 0; pindexFirst && i < blockstogoback; i++)
-        pindexFirst = pindexFirst->pprev;
-    assert(pindexFirst);
-
-    // Limit adjustment step
-    int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
-    printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
-    if (nActualTimespan < nTargetTimespan/4)
-        nActualTimespan = nTargetTimespan/4;
-    if (nActualTimespan > nTargetTimespan*4)
-        nActualTimespan = nTargetTimespan*4;
-
-    // Retarget
-    CBigNum bnNew;
-    bnNew.SetCompact(pindexLast->nBits);
-    bnNew *= nActualTimespan;
-    bnNew /= nTargetTimespan;
-
-    if (bnNew > bnProofOfWorkLimit)
-        bnNew = bnProofOfWorkLimit;
-
-    /// debug print
-    printf("GetNextWorkRequired RETARGET\n");
-    printf("nTargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", nTargetTimespan, nActualTimespan);
-    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
-    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
-
-    return bnNew.GetCompact();
+	static const int64	BlocksTargetSpacing			= 5 * 60;
+	unsigned int		TimeDaySeconds				= 60 * 60 * 24;
+	int64				PastSecondsMin				= TimeDaySeconds * 5 * 0.1;
+	int64				PastSecondsMax				= TimeDaySeconds * 5 * 2.8;
+	uint64				PastBlocksMin				= PastSecondsMin / BlocksTargetSpacing;
+	uint64				PastBlocksMax				= PastSecondsMax / BlocksTargetSpacing;	
+	
+	return KimotoGravityWell(pindexLast, pblock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
 }
+
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits)
 {
@@ -1914,6 +1918,14 @@ bool SetBestChain(CValidationState &state, CBlockIndex* pindexNew)
             strMiscWarning = _("Warning: This version is obsolete, upgrade required!");
     }
 
+	if (!IsSyncCheckpointEnforced()) // checkpoint advisory mode
+    {
+        if (pindexBest->pprev && !CheckSyncCheckpoint(pindexBest->GetBlockHash(), pindexBest->pprev))
+            strCheckpointWarning = _("Warning: checkpoint on different blockchain fork, contact developers to resolve the issue");
+        else
+            strCheckpointWarning = "";
+    }
+	
     std::string strCmd = GetArg("-blocknotify", "");
 
     if (!fIsInitialDownload && !strCmd.empty())
@@ -2080,24 +2092,6 @@ bool CBlock::CheckBlock(CValidationState &state, bool fCheckPOW, bool fCheckMerk
     if (vtx.empty() || vtx.size() > MAX_BLOCK_SIZE || ::GetSerializeSize(*this, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
         return state.DoS(100, error("CheckBlock() : size limits failed"));
 
-    // LGBTQoin: Special short-term limits to avoid 10,000 BDB lock limit:
-    if (GetBlockTime() < 1376568000)  // stop enforcing 15 August 2013 00:00:00
-    {
-        // Rule is: #unique txids referenced <= 4,500
-        // ... to prevent 10,000 BDB lock exhaustion on old clients
-        set<uint256> setTxIn;
-        for (size_t i = 0; i < vtx.size(); i++)
-        {
-            setTxIn.insert(vtx[i].GetHash());
-            if (i == 0) continue; // skip coinbase txin
-            BOOST_FOREACH(const CTxIn& txin, vtx[i].vin)
-                setTxIn.insert(txin.prevout.hash);
-        }
-        size_t nTxids = setTxIn.size();
-        if (nTxids > 4500)
-            return error("CheckBlock() : 15 August maxlocks violation");
-    }
-
     // Check proof of work matches claimed amount
     if (fCheckPOW && !CheckProofOfWork(GetPoWHash(), nBits))
         return state.DoS(50, error("CheckBlock() : proof of work failed"));
@@ -2172,6 +2166,16 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
         if (GetBlockTime() <= pindexPrev->GetMedianTimePast())
             return state.Invalid(error("AcceptBlock() : block's timestamp is too early"));
 
+        // Prevent blocks from too far in the future
+        if (GetBlockTime() > GetAdjustedTime() + 15 * 60) {
+            return error("AcceptBlock() : block's timestamp too far in the future");
+        }
+
+        // Check timestamp is not too far in the past
+        if (GetBlockTime() <= pindexPrev->GetBlockTime() - 15 * 60) {
+            return error("AcceptBlock() : block's timestamp is too early compare to last block");
+        }
+
         // Check that all transactions are finalized
         BOOST_FOREACH(const CTransaction& tx, vtx)
             if (!tx.IsFinal(nHeight, GetBlockTime()))
@@ -2181,11 +2185,11 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
         if (!Checkpoints::CheckBlock(nHeight, hash))
             return state.DoS(100, error("AcceptBlock() : rejected by checkpoint lock-in at %d", nHeight));
 
-        // Don't accept any forks from the main chain prior to last checkpoint
-        CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(mapBlockIndex);
-        if (pcheckpoint && nHeight < pcheckpoint->nHeight)
-            return state.DoS(100, error("AcceptBlock() : forked chain older than last checkpoint (height %d)", nHeight));
-
+		// Check that the block satisfies synchronized checkpoint
+        if (IsSyncCheckpointEnforced() // checkpoint enforce mode
+            && !CheckSyncCheckpoint(hash, pindexPrev))
+            return error("AcceptBlock() : rejected by synchronized checkpoint");
+			
         // Reject block.nVersion=1 blocks when 95% (75% on testnet) of the network has upgraded:
         if (nVersion < 2)
         {
@@ -2237,6 +2241,9 @@ bool CBlock::AcceptBlock(CValidationState &state, CDiskBlockPos *dbp)
                 pnode->PushInventory(CInv(MSG_BLOCK, hash));
     }
 
+	// Check pending sync-checkpoint
+    AcceptPendingSyncCheckpoint();
+
     return true;
 }
 
@@ -2270,22 +2277,16 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(mapBlockIndex);
     if (pcheckpoint && pblock->hashPrevBlock != hashBestChain)
     {
-        // Extra checks to prevent "fill up memory by spamming with bogus blocks"
-        int64 deltaTime = pblock->GetBlockTime() - pcheckpoint->nTime;
-        if (deltaTime < 0)
-        {
-            return state.DoS(100, error("ProcessBlock() : block with timestamp before last checkpoint"));
-        }
-        CBigNum bnNewBlock;
-        bnNewBlock.SetCompact(pblock->nBits);
-        CBigNum bnRequired;
-        bnRequired.SetCompact(ComputeMinWork(pcheckpoint->nBits, deltaTime));
-        if (bnNewBlock > bnRequired)
-        {
-            return state.DoS(100, error("ProcessBlock() : block with too little proof-of-work"));
+
+        if((pblock->GetBlockTime() - pcheckpoint->nTime) < 0) {
+            if(pfrom) pfrom->Misbehaving(100);
+            return error("ProcessBlock() : block has a time stamp of %u before the last checkpoint of %u", pblock->GetBlockTime(), pcheckpoint->nTime);
         }
     }
 
+	// Ask for pending sync-checkpoint if any
+    if (!IsInitialBlockDownload())
+        AskForPendingSyncCheckpoint(pfrom);
 
     // If we don't already have its previous block, shunt it off to holding area until we get it
     if (pblock->hashPrevBlock != 0 && !mapBlockIndex.count(pblock->hashPrevBlock))
@@ -2330,6 +2331,11 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     }
 
     printf("ProcessBlock: ACCEPTED\n");
+	
+    if (pfrom && !CSyncCheckpoint::strMasterPrivKey.empty() &&
+        (int)GetArg("-checkpointdepth", -1) >= 0)
+        SendSyncCheckpoint(AutoSelectSyncCheckpoint());
+
     return true;
 }
 
@@ -2598,6 +2604,11 @@ bool static LoadBlockIndexDB()
     if (pblocktree->ReadBlockFileInfo(nLastBlockFile, infoLastBlockFile))
         printf("LoadBlockIndexDB(): last block file info: %s\n", infoLastBlockFile.ToString().c_str());
 
+    if (!pblocktree->ReadSyncCheckpoint(hashSyncCheckpoint))
+        printf("LoadBlockIndexDB(): synchronized checkpoint not read\n");
+    else
+        printf("LoadBlockIndexDB(): synchronized checkpoint %s\n", hashSyncCheckpoint.ToString().c_str());
+	
     // Load nBestInvalidWork, OK if it doesn't exist
     CBigNum bnBestInvalidWork;
     pblocktree->ReadBestInvalidWork(bnBestInvalidWork);
@@ -2723,11 +2734,17 @@ bool LoadBlockIndex()
 {
     if (fTestNet)
     {
-        pchMessageStart[0] = 0xfc;
-        pchMessageStart[1] = 0xc1;
-        pchMessageStart[2] = 0xb7;
-        pchMessageStart[3] = 0xdc;
-        hashGenesisBlock = uint256("0x4f44361452395ba243d6202715dfbacaff6a38cb0f7032e40324e78791034270");
+        pchMessageStart[0] = 0xfe;
+        pchMessageStart[1] = 0xc4;
+        pchMessageStart[2] = 0xba;
+        pchMessageStart[3] = 0xde;
+		// Testnet Genesis block:
+        // CBlock(hash=000008da0e16960d6c2548da4831323b956d61370e2a3fdc5150188c5c478c49, input=0100000000000000000000000000000000000000000000000000000000000000000000002a5d09737c826a5f8c12307a9c71774cd2e752e2910c9618744f05bc929d01b07ac92153f0ff0f1eb86e964c, PoW=000008da0e16960d6c2548da4831323b956d61370e2a3fdc5150188c5c478c49, ver=1, hashPrevBlock=0000000000000000000000000000000000000000000000000000000000000000, hashMerkleRoot=b0019d92bc054f7418960c91e252e7d24c77719c7a30128c5f6a827c73095d2a, nTime=1394723194, nBits=1e0ffff0, nNonce=1284927160, vtx=1)
+        // CTransaction(hash=b0019d92bc054f7418960c91e252e7d24c77719c7a30128c5f6a827c73095d2a, ver=1, vin.size=1, vout.size=1, nLockTime=0)
+        // CTxIn(COutPoint(0000000000000000000000000000000000000000000000000000000000000000, 4294967295), coinbase 04ffff001d0104474a6170616e546f6461792031332f4d61722f323031342057617973206579656420746f206d616b6520706c616e65732065617369657220746f2066696e6420696e206f6365616e)
+        // CTxOut(nValue=400.00000000, scriptPubKey=040184710fa689ad5023690c80f3a4)
+        // vMerkleTree: b0019d92bc054f7418960c91e252e7d24c77719c7a30128c5f6a827c73095d2a 
+        hashGenesisBlock = uint256("0x000008da0e16960d6c2548da4831323b956d61370e2a3fdc5150188c5c478c49");
     }
 
     //
@@ -2752,42 +2769,42 @@ bool InitBlockIndex() {
 
     // Only add the genesis block if not reindexing (in which case we reuse the one already on disk)
     if (!fReindex) {
-        // Genesis Block:
-        // CBlock(hash=12a765e31ffd4059bada, PoW=0000050c34a64b415b6b, ver=1, hashPrevBlock=00000000000000000000, hashMerkleRoot=97ddfbbae6, nTime=1317972665, nBits=1e0ffff0, nNonce=2084524493, vtx=1)
-        //   CTransaction(hash=97ddfbbae6, ver=1, vin.size=1, vout.size=1, nLockTime=0)
-        //     CTxIn(COutPoint(0000000000, -1), coinbase 04ffff001d0104404e592054696d65732030352f4f63742f32303131205374657665204a6f62732c204170706c65e280997320566973696f6e6172792c2044696573206174203536)
-        //     CTxOut(nValue=50.00000000, scriptPubKey=040184710fa689ad5023690c80f3a4)
-        //   vMerkleTree: 97ddfbbae6
-
-        // Genesis block
-        const char* pszTimestamp = "Mtgox is down";
+	// Mainnet Genesis block:
+    // CBlock(hash=1267d7cab30e6d3f8638fa5ecd44a303ada9483e94c8c530ee60ded5bb068014, input=0100000000000000000000000000000000000000000000000000000000000000000000002a5d09737c826a5f8c12307a9c71774cd2e752e2910c9618744f05bc929d01b03bc92153f0ff0f1e8ae0914c, PoW=1267d7cab30e6d3f8638fa5ecd44a303ada9483e94c8c530ee60ded5bb068014, ver=1, hashPrevBlock=0000000000000000000000000000000000000000000000000000000000000000, hashMerkleRoot=b0019d92bc054f7418960c91e252e7d24c77719c7a30128c5f6a827c73095d2a, nTime=1394723131, nBits=1e0ffff0, nNonce=1284628618, vtx=1)
+    // CTransaction(hash=b0019d92bc054f7418960c91e252e7d24c77719c7a30128c5f6a827c73095d2a, ver=1, vin.size=1, vout.size=1, nLockTime=0)
+    // CTxIn(COutPoint(0000000000000000000000000000000000000000000000000000000000000000, 4294967295), coinbase 04ffff001d0104474a6170616e546f6461792031332f4d61722f323031342057617973206579656420746f206d616b6520706c616e65732065617369657220746f2066696e6420696e206f6365616e)
+    // CTxOut(nValue=400.00000000, scriptPubKey=040184710fa689ad5023690c80f3a4)
+    // vMerkleTree: b0019d92bc054f7418960c91e252e7d24c77719c7a30128c5f6a827c73095d2a 
+	
+		const char* pszTimestamp = "Supreme Court Ruling Makes Same-Sex Marriage a Right Nationwide 6-26-2015 NY Times";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 50 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
+        txNew.vout[0].nValue = 1 * COIN;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("040184718fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
         CBlock block;
         block.vtx.push_back(txNew);
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1431276570;
+        block.nTime    = 1438875297;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = 2085600957;
+        block.nNonce   = 759141;
 
         if (fTestNet)
         {
-            block.nTime    = 1431276570;
-            block.nNonce   = 2085600957;
+            block.nTime    = 1;
+            block.nNonce   = 1280;
         }
-
+		
         //// debug print
         uint256 hash = block.GetHash();
         printf("%s\n", hash.ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0xdf5d4cddc97c45da161f81032af08c18a6b7caecf0fb13d416108d61872cb618"));
+        assert(block.hashMerkleRoot == uint256("0xfd8d16203ec047c985409d6c8114bac4c4f876647240e7dfc00596697715676a"));
+
         block.print();
         assert(hash == hashGenesisBlock);
 
@@ -2802,10 +2819,16 @@ bool InitBlockIndex() {
                 return error("LoadBlockIndex() : writing genesis block to disk failed");
             if (!block.AddToBlockIndex(state, blockPos))
                 return error("LoadBlockIndex() : genesis block not accepted");
+            if (!WriteSyncCheckpoint(hashGenesisBlock))
+                return error("LoadBlockIndex() : failed to init sync checkpoint");
         } catch(std::runtime_error &e) {
             return error("LoadBlockIndex() : failed to initialize block database: %s", e.what());
         }
     }
+
+	// If checkpoint master key changed must reset sync-checkpoint
+    if (!CheckCheckpointPubKey())
+        return error("LoadBlockIndex() : failed to reset checkpoint master pubkey");
 
     return true;
 }
@@ -2983,6 +3006,13 @@ string GetWarnings(string strFor)
     if (!CLIENT_VERSION_IS_RELEASE)
         strStatusBar = _("This is a pre-release test build - use at your own risk - do not use for mining or merchant applications");
 
+	// Checkpoint warning
+    if (strCheckpointWarning != "")
+    {
+        nPriority = 900;
+        strStatusBar = strCheckpointWarning;
+    }
+
     // Misc warnings like out of disk space and clock is wrong
     if (strMiscWarning != "")
     {
@@ -2995,6 +3025,13 @@ string GetWarnings(string strFor)
     {
         nPriority = 2000;
         strStatusBar = strRPC = _("Warning: Displayed transactions may not be correct! You may need to upgrade, or other nodes may need to upgrade.");
+    }
+
+	// If detected invalid checkpoint enter safe mode
+    if (hashInvalidCheckpoint != 0)
+    {
+        nPriority = 3000;
+        strStatusBar = strRPC = "WARNING: Inconsistent checkpoint found! Stop enforcing checkpoints and notify developers to resolve the issue.";
     }
 
     // Alerts
@@ -3060,7 +3097,7 @@ bool static AlreadyHave(const CInv& inv)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfb, 0xc0, 0xb6, 0xdb }; // Litecoin: increase each by adding 2 to bitcoin's value.
+unsigned char pchMessageStart[4] = { 0xf5, 0xc5, 0xb5, 0x5e }; // LGBTQoin: increase each by adding 6 to bitcoin's value.
 
 
 void static ProcessGetData(CNode* pfrom)
@@ -3087,28 +3124,11 @@ void static ProcessGetData(CNode* pfrom)
 
             if (inv.type == MSG_BLOCK || inv.type == MSG_FILTERED_BLOCK)
             {
-                bool send = true;
+                // Send block from disk
                 map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.find(inv.hash);
                 pfrom->nBlocksRequested++;
                 if (mi != mapBlockIndex.end())
                 {
-                    // If the requested block is at a height below our last
-                    // checkpoint, only serve it if it's in the checkpointed chain
-                    int nHeight = ((*mi).second)->nHeight;
-                    CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(mapBlockIndex);
-                    if (pcheckpoint && nHeight < pcheckpoint->nHeight) {
-                       if (!((*mi).second)->IsInMainChain())
-                       {
-                         printf("ProcessGetData(): ignoring request for old block that isn't in the main chain\n");
-                         send = false;
-                       }
-                    }
-                } else {
-                    send = false;
-                }
-                if (send)
-                {
-                    // Send block from disk
                     CBlock block;
                     block.ReadFromDisk((*mi).second);
                     if (inv.type == MSG_BLOCK)
@@ -3308,11 +3328,21 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                 item.second.RelayTo(pfrom);
         }
 
+		// Relay sync-checkpoint
+		{
+            LOCK(cs_hashSyncCheckpoint);
+            if (!checkpointMessage.IsNull())
+                checkpointMessage.RelayTo(pfrom);
+        }
+		
         pfrom->fSuccessfullyConnected = true;
 
         printf("receive version message: %s: version %d, blocks=%d, us=%s, them=%s, peer=%s\n", pfrom->cleanSubVer.c_str(), pfrom->nVersion, pfrom->nStartingHeight, addrMe.ToString().c_str(), addrFrom.ToString().c_str(), pfrom->addr.ToString().c_str());
 
         cPeerBlockCounts.input(pfrom->nStartingHeight);
+		
+        if (!IsInitialBlockDownload())
+            AskForPendingSyncCheckpoint(pfrom);
     }
 
 
@@ -3731,6 +3761,21 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                      pfrom->addr.ToString().c_str());
     }
 
+	else if (strCommand == "checkpoint") // Synchronized checkpoint
+    {
+        CSyncCheckpoint checkpoint;
+        vRecv >> checkpoint;
+
+        if (checkpoint.ProcessSyncCheckpoint(pfrom))
+        {
+            // Relay
+            pfrom->hashCheckpointKnown = checkpoint.hashCheckpoint;
+            LOCK(cs_vNodes);
+            BOOST_FOREACH(CNode* pnode, vNodes)
+                checkpoint.RelayTo(pnode);
+        }
+    }
+
     else if (strCommand == "filterload")
     {
         CBloomFilter filter;
@@ -4102,7 +4147,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// LitecoinMiner
+// LGBTQoinMiner
 //
 
 int static FormatHashBlocks(void* pbuffer, unsigned int len)
@@ -4542,159 +4587,6 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     }
 
     return true;
-}
-
-void static LitecoinMiner(CWallet *pwallet)
-{
-    printf("LGBTQoinMiner:\n");
-    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("litecoin-miner");
-
-    // Each thread has its own key and counter
-    CReserveKey reservekey(pwallet);
-    unsigned int nExtraNonce = 0;
-
-    try { loop {
-        while (vNodes.empty())
-            MilliSleep(1000);
-
-        //
-        // Create new block
-        //
-        unsigned int nTransactionsUpdatedLast = nTransactionsUpdated;
-        CBlockIndex* pindexPrev = pindexBest;
-
-        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
-        if (!pblocktemplate.get())
-            return;
-        CBlock *pblock = &pblocktemplate->block;
-        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-
-        printf("Running LGBTQoin with %"PRIszu" transactions in block (%u bytes)\n", pblock->vtx.size(),
-               ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
-
-        //
-        // Pre-build hash buffers
-        //
-        char pmidstatebuf[32+16]; char* pmidstate = alignup<16>(pmidstatebuf);
-        char pdatabuf[128+16];    char* pdata     = alignup<16>(pdatabuf);
-        char phash1buf[64+16];    char* phash1    = alignup<16>(phash1buf);
-
-        FormatHashBuffers(pblock, pmidstate, pdata, phash1);
-
-        unsigned int& nBlockTime = *(unsigned int*)(pdata + 64 + 4);
-        unsigned int& nBlockBits = *(unsigned int*)(pdata + 64 + 8);
-        //unsigned int& nBlockNonce = *(unsigned int*)(pdata + 64 + 12);
-
-
-        //
-        // Search
-        //
-        int64 nStart = GetTime();
-        uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
-        loop
-        {
-            unsigned int nHashesDone = 0;
-
-            uint256 thash;
-            char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
-            loop
-            {
-                scrypt_1024_1_1_256_sp(BEGIN(pblock->nVersion), BEGIN(thash), scratchpad);
-
-                if (thash <= hashTarget)
-                {
-                    // Found a solution
-                    SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                    CheckWork(pblock, *pwallet, reservekey);
-                    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-                    break;
-                }
-                pblock->nNonce += 1;
-                nHashesDone += 1;
-                if ((pblock->nNonce & 0xFF) == 0)
-                    break;
-            }
-
-            // Meter hashes/sec
-            static int64 nHashCounter;
-            if (nHPSTimerStart == 0)
-            {
-                nHPSTimerStart = GetTimeMillis();
-                nHashCounter = 0;
-            }
-            else
-                nHashCounter += nHashesDone;
-            if (GetTimeMillis() - nHPSTimerStart > 4000)
-            {
-                static CCriticalSection cs;
-                {
-                    LOCK(cs);
-                    if (GetTimeMillis() - nHPSTimerStart > 4000)
-                    {
-                        dHashesPerSec = 1000.0 * nHashCounter / (GetTimeMillis() - nHPSTimerStart);
-                        nHPSTimerStart = GetTimeMillis();
-                        nHashCounter = 0;
-                        static int64 nLogTime;
-                        if (GetTime() - nLogTime > 30 * 60)
-                        {
-                            nLogTime = GetTime();
-                            printf("hashmeter %6.0f khash/s\n", dHashesPerSec/1000.0);
-                        }
-                    }
-                }
-            }
-
-            // Check for stop or if block needs to be rebuilt
-            boost::this_thread::interruption_point();
-            if (vNodes.empty())
-                break;
-            if (pblock->nNonce >= 0xffff0000)
-                break;
-            if (nTransactionsUpdated != nTransactionsUpdatedLast && GetTime() - nStart > 60)
-                break;
-            if (pindexPrev != pindexBest)
-                break;
-
-            // Update nTime every few seconds
-            pblock->UpdateTime(pindexPrev);
-            nBlockTime = ByteReverse(pblock->nTime);
-            if (fTestNet)
-            {
-                // Changing pblock->nTime can change work required on testnet:
-                nBlockBits = ByteReverse(pblock->nBits);
-                hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
-            }
-        }
-    } }
-    catch (boost::thread_interrupted)
-    {
-        printf("LGBTQoinMiner terminated\n");
-        throw;
-    }
-}
-
-void GenerateBitcoins(bool fGenerate, CWallet* pwallet)
-{
-    static boost::thread_group* minerThreads = NULL;
-
-    int nThreads = GetArg("-genproclimit", -1);
-    if (nThreads < 0)
-        nThreads = boost::thread::hardware_concurrency();
-
-    if (minerThreads != NULL)
-    {
-        minerThreads->interrupt_all();
-        delete minerThreads;
-        minerThreads = NULL;
-    }
-
-    if (nThreads == 0 || !fGenerate)
-        return;
-
-    minerThreads = new boost::thread_group();
-    for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&LitecoinMiner, pwallet));
 }
 
 // Amount compression:

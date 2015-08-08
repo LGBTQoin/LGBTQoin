@@ -3,6 +3,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "irc.h"
 #include "db.h"
 #include "net.h"
 #include "init.h"
@@ -1112,7 +1113,7 @@ void ThreadMapPort()
             }
         }
 
-        string strDesc = "LGBTQoin "  + FormatFullVersion();
+        string strDesc = "LGBTQoin " + FormatFullVersion();
 
         try {
             loop {
@@ -1192,7 +1193,6 @@ void MapPort(bool)
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
 static const char *strMainNetDNSSeed[][2] = {
-    {NULL, NULL},
     {NULL, NULL}
 };
 
@@ -1245,7 +1245,7 @@ void ThreadDNSAddressSeed()
 
 unsigned int pnSeed[] =
 {
-
+    0x119caa6b
 };
 
 void DumpAddresses()
@@ -1785,6 +1785,9 @@ void StartNode(boost::thread_group& threadGroup)
     MapPort(GetBoolArg("-upnp", USE_UPNP));
 #endif
 
+	// Get addresses from IRC and advertise ours
+    threadGroup.create_thread(boost::bind(&TraceThread<void (*)()>, "irc", &ThreadIRCSeed));
+
     // Send and receive from sockets, accept connections
     threadGroup.create_thread(boost::bind(&TraceThread<void (*)()>, "net", &ThreadSocketHandler));
 
@@ -1804,7 +1807,6 @@ void StartNode(boost::thread_group& threadGroup)
 bool StopNode()
 {
     printf("StopNode()\n");
-    GenerateBitcoins(false, NULL);
     MapPort(false);
     nTransactionsUpdated++;
     if (semOutbound)

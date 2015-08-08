@@ -85,58 +85,6 @@ void ShutdownRPCMining()
     delete pMiningKey; pMiningKey = NULL;
 }
 
-Value getgenerate(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getgenerate\n"
-            "Returns true or false.");
-
-    if (!pMiningKey)
-        return false;
-
-    return GetBoolArg("-gen");
-}
-
-
-Value setgenerate(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() < 1 || params.size() > 2)
-        throw runtime_error(
-            "setgenerate <generate> [genproclimit]\n"
-            "<generate> is true or false to turn generation on or off.\n"
-            "Generation is limited to [genproclimit] processors, -1 is unlimited.");
-
-    bool fGenerate = true;
-    if (params.size() > 0)
-        fGenerate = params[0].get_bool();
-
-    if (params.size() > 1)
-    {
-        int nGenProcLimit = params[1].get_int();
-        mapArgs["-genproclimit"] = itostr(nGenProcLimit);
-        if (nGenProcLimit == 0)
-            fGenerate = false;
-    }
-    mapArgs["-gen"] = (fGenerate ? "1" : "0");
-
-    assert(pwalletMain != NULL);
-    GenerateBitcoins(fGenerate, pwalletMain);
-    return Value::null;
-}
-
-
-Value gethashespersec(const Array& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "gethashespersec\n"
-            "Returns a recent hashes per second performance measurement while generating.");
-
-    if (GetTimeMillis() - nHPSTimerStart > 8000)
-        return (boost::int64_t)0;
-    return (boost::int64_t)dHashesPerSec;
-}
 
 
 Value getmininginfo(const Array& params, bool fHelp)
@@ -152,9 +100,6 @@ Value getmininginfo(const Array& params, bool fHelp)
     obj.push_back(Pair("currentblocktx",(uint64_t)nLastBlockTx));
     obj.push_back(Pair("difficulty",    (double)GetDifficulty()));
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
-    obj.push_back(Pair("generate",      GetBoolArg("-gen")));
-    obj.push_back(Pair("genproclimit",  (int)GetArg("-genproclimit", -1)));
-    obj.push_back(Pair("hashespersec",  gethashespersec(params, false)));
     obj.push_back(Pair("networkhashps", getnetworkhashps(params, false)));
     obj.push_back(Pair("pooledtx",      (uint64_t)mempool.size()));
     obj.push_back(Pair("testnet",       fTestNet));
@@ -171,10 +116,10 @@ Value getworkex(const Array& params, bool fHelp)
         );
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Litecoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "LGBTQoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Litecoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "LGBTQoin is downloading blocks...");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;    // FIXME: thread safety
@@ -311,10 +256,10 @@ Value getwork(const Array& params, bool fHelp)
             "If [data] is specified, tries to solve the block and returns true if it was successful.");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Litecoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "LGBTQoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Litecoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "LGBTQoin is downloading blocks...");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;    // FIXME: thread safety
@@ -453,10 +398,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Litecoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "LGBTQoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Litecoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "LGBTQoin is downloading blocks...");
 
     // Update block
     static unsigned int nTransactionsUpdatedLast;

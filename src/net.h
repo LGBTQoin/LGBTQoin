@@ -51,6 +51,7 @@ enum
     LOCAL_IF,     // address a local interface listens on
     LOCAL_BIND,   // address explicit bound to
     LOCAL_UPNP,   // address reported by UPnP
+    LOCAL_IRC,    // address reported by IRC (deprecated)
     LOCAL_HTTP,   // address reported by whatismyip.com and similar
     LOCAL_MANUAL, // address explicitly specified (-externalip=)
 
@@ -219,6 +220,7 @@ public:
     std::set<CAddress> setAddrKnown;
     bool fGetAddr;
     std::set<uint256> setKnown;
+	uint256 hashCheckpointKnown;
 
     // inventory based relay
     mruset<CInv> setInventoryKnown;
@@ -248,6 +250,7 @@ public:
         fNetworkNode = false;
         fSuccessfullyConnected = false;
         fDisconnect = false;
+		hashCheckpointKnown = 0;
         nRefCount = 0;
         nSendSize = 0;
         nSendOffset = 0;
